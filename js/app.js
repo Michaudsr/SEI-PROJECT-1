@@ -1,6 +1,6 @@
-console.log("ehllo!")
-let action;
-let context
+
+
+let context;
 let gamescreen;
 let padOne;
 let padTwo;
@@ -12,10 +12,9 @@ function Paddle(x, y, width, height, color) {
   this.width = width;
   this.height = height;
   this.color = color;
-  this.alive = true;
   this.render = function() {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    context.fillStyle = this.color;
+    context.fillRect(this.x, this.y, this.width, this.height);
   }
 }
 
@@ -25,15 +24,36 @@ function Paddle(x, y, width, height, color) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Dom loaded')
     // DOM REFS
-    movementDisplay = document.getElementById('action');
-    game = document.getElementById('gamescreen');
+    scoreBoard = document.getElementById('footer')
+    gameScreen = document.getElementById('gamescreen');
     // CANVAS CONFIG
-    gamescreen.setAttribute('height', 600);
-    gamescreen.setAttribute('width', 1000);
-    ctx = game.getContext('2d');
+    context = gameScreen.getContext('2d');
     // CHARACTER REFS
-    padOne = new Paddle(300, 100, 80, 120, '#bada55');
-    padTwo = new Paddle(200, 100, 50, 50, 'hotpink');
-    document.addEventListener('keydown', movementHandler);
+    padOne = new Paddle(300, 100, 80, 120, 'white');
+    padTwo = new Paddle(10, 200, 50, 50, 'white');
+    document.addEventListener('keydown', keyAction);
     let runGame = setInterval(gameLoop, 60);
+    padOne.render()
   })
+  const gameLoop = () => {
+   
+    // clear the canvas
+    context.clearRect(0, 0, gameScreen.width, gameScreen.height);
+    // display the x, y coordinates of our paddles onto the DOM
+  
+   
+    
+
+  }
+  const keyAction = e => {
+    // w: 87, a:65, // up down arrow
+    switch (e.keyCode) {
+      case (87): // w up
+        if (padOne.y > 0) padOne.y -=19
+        break;
+      case (83): // s down
+        if (hero.y + padOne.height < gamescreen.height) padOne.y +=10
+        break;
+      
+    }
+  }
