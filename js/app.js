@@ -1,3 +1,8 @@
+let wKey = false;
+let sKey = false;
+let upKey = false;
+let downKey =false;
+
 let movementDisplay
 let scoreBoard
 let context;
@@ -5,6 +10,9 @@ let gameScreen;
 let padOne;
 let padTwo;
 let ball
+
+  
+
 // Paddle Constructor function
 function Paddle(x, y, width, height, color,) {
   this.x = x;
@@ -12,6 +20,12 @@ function Paddle(x, y, width, height, color,) {
   this.width = width;
   this.height = height;
   this.color = color;
+  this.moveUp = function(){
+    if (this.y > 0) this.y -=20
+  }
+  this.moveDown = function(){
+    if(this.y + this.height < gameScreen.height) this.y +=20
+  }
   this.render = function() {
     context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.width, this.height);//set parameters
@@ -21,65 +35,100 @@ function Paddle(x, y, width, height, color,) {
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Dom loaded')
-    // DOM REFS
+    // DOM 
     movementDisplay = document.getElementById('score');
     gameScreen = document.getElementById('gamescreen');
-    // CANVAS CONFIG
+    // CANVAS Style
     gamescreen.setAttribute('height', 500);
     gamescreen.setAttribute('width', 900);
     context = gameScreen.getContext('2d');
-    // CHARACTER REFS
+    // Paddles
     padOne = new Paddle(880, 250, 15, 90, 'cyan')
     padTwo = new Paddle(10, 200, 15, 90, 'cyan')
-   
-    document.addEventListener('keydown', keyAction);
-    document.addEventListener('keyup', KeyActionTWo);
-    let runGame = setInterval(gameLoop, 60);
-    
-    
+    document.addEventListener('keydown', keyPressed);
+    document.addEventListener('keyup', keyReleased);
+    let runGame = setInterval(gameLoop, 60);  
   })
+  
   const gameLoop = () => {
    
     // clear the canvas
     context.clearRect(0, 0, gameScreen.width, gameScreen.height);
     // display the x, y coordinates on paddles onto the DOM
     movementDisplay.textContent = `X:${padOne.x}\nY:${padOne.y}`
-     
-      
+    movementDisplay.textContent = `X:${padTwo.x}\nY:${padTwo.y}`
    
+    
+    movementHandler() 
     padOne.render()
     padTwo.render()
   }
-  const keyAction = e => {
+  const keyPressed = e => {
     // w: 87, a:65, // uparrow// 38 //downarrow 40 
     switch (e.keyCode) {
       case (87): // w up
-        if (padOne.y > 0) padOne.y -=20
+        wKey = true;
+        // if (padOne.y > 0) padOne.y -=20
         break;
       case (83): // s down
-        if (padOne.y + padOne.height < gameScreen.height) padOne.y +=20
+        sKey = true;
+        //if (padOne.y + padOne.height < gameScreen.height) padOne.y +=20
+        break;
+      case (38): //  up button
+        upKey = true;
+        //if (padTwo.y > 0) padTwo.y -=20
+        break;
+      case (40): // down button
+        downKey = true;
+        //if (padTwo.y + padTwo.height < gameScreen.height) padTwo.y +=20
         break;
       }
       console.log(e)
     }
+    const keyReleased = e =>{
+      switch (e.keyCode) {
+        case (87): // w down
+          wKey = false;
+  
+        case (83): // w down
+          sKey = false;
     
-    const KeyActionTWo = e => {
-    switch (e.keyCodeTwo) {
-        case (38): //  up
-        if (padTwo.y > 0) padTwo.y -=20
-        break;
-      case (40): // down
-        if (padTwo.y + padTwo.height < gameScreen.height) padTwo.y +=20
-        break;
+        case (38): // w down
+          upKey = false;
+      
+        case (40): // w down
+          downKey = false;
+      }  
+    }
+    const movementHandler = ()=> {
+      if(wKey == true){
+        padTwo.moveUp()
+      }
+    
+      if(sKey == true){
+        padTwo.moveDown()
+      }
+
+      if(upKey == true){
+        padOne.moveUp()
+      }
+    
+      if(downKey == true){
+        padOne.moveDown()
       }
     }
+    
+    
+    
+   
+     
 
 
 
 
-var MAX_FLIES = 50;
-var FLY_XSPEED_RANGE = [-1, 1];
-var FLY_YSPEED_RANGE = [-0.5, 0.5];
+var MAX_FLIES = 20;
+var FLY_XSPEED_RANGE =[-2, 1];
+var FLY_YSPEED_RANGE = [-1, 0.5];
 var FLY_SIZE_RANGE = [1, 5];
 var FLY_LIFESPAN_RANGE = [75, 150];
 
@@ -183,8 +232,6 @@ function render() {
 window.addEventListener('resize', function() {
   fitToScreen(gameScreen);
 });
-
-
 
 (function animationLoop() {
   window.requestAnimationFrame(animationLoop);
