@@ -2,7 +2,10 @@ let wKey = false;
 let sKey = false;
 let upKey = false;
 let downKey =false;
-let movementDisplay
+
+let pOneScore = 0;
+let pTwoScore = 0;
+let xWins = 0;
 let scoreBoard
 let context;
 let gameScreen;
@@ -13,8 +16,8 @@ let ballX = 447;//will always start here
 let ballY = 247;
 let ballHeight = 10;
 let ballWidth = 10;
-let velocityX = 1;
-let velocityY = 1;
+let velocityX = 5;
+let velocityY = 5;
 
 function ballMove(){
   ballX += velocityX//increments the ball to the right
@@ -22,20 +25,44 @@ function ballMove(){
 }
 
 function borderCollision(){
-  if(ballY === gameScreen.height){
+  if(ballY <= gameScreen.height){
     velocityY = -velocityY ;
   }
-  if(ballX === gameScreen.width){
-    velocityX = -velocityX ;
+  if(ballX >= gameScreen.width){
+    ball.alive= false ;
   }
-  if(ballY === 0 ){
+  if(ballY >= 0 ){
     velocityY = -velocityY;
   }
-  if(ballX === 0 ){
+  if(ballX <= 0 ){
+    ball.alive =false;
+  }
+  if(ballX >= gameScreen.width){
+    pOneScore++;
+  }
+  if(ballX <= padTwo.x + padTwo.width){
     velocityX = -velocityX;
- }
+  }
+  
+  if(ballX + ballWidth >= padOne.x){
+    velocitX = - velocityX;
 
+  }
+    
+  
 }
+    
+function score (){
+  if( ballY && ballX >= gameScreen.width){
+    console.log ('score')
+    }
+  }
+
+
+//  if (padOne + padOne.width < ballY && paddleOne > ballY){
+  //    velocityX = -velocityX;
+  //  }
+  
 
 
 
@@ -49,6 +76,7 @@ function Paddle(x, y, width, height, color,) {
   this.width = width;
   this.height = height;
   this.color = color;
+  this.alive = true;
   this.moveUp = function(){
     if (this.y > 0) this.y -=11
   }
@@ -65,7 +93,7 @@ function Paddle(x, y, width, height, color,) {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
   // DOM 
-  movementDisplay = document.getElementById('score');
+  scoreBoard = document.getElementById('score');
   gameScreen = document.getElementById('gamescreen');
   // CANVAS Style
   gamescreen.setAttribute('height', 500);
@@ -77,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     padTwo = new Paddle(13, 215, 15, 90, 'cyan')
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
-    let runGame = setInterval(gameLoop, 20);  
+    let runGame = setInterval(gameLoop, 60);  
   })
   
   const gameLoop = () => {
@@ -85,10 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     context.clearRect(0, 0, gameScreen.width, gameScreen.height);
     // display the x, y coordinates on paddles onto the DOM
-    movementDisplay.textContent = `X:${padOne.x}\nY:${padOne.y}`
-    movementDisplay.textContent = `X:${padTwo.x}\nY:${padTwo.y}`
+    scoreBoard.innerText = `Player One: ${pOneScore}` + '\n' + `Player Two: ${pTwoScore}`
     borderCollision()
     ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
+    score()
     ball.render()
     ballMove()
     movementHandler() 
@@ -172,8 +200,8 @@ function Fly(options) {
   };
 }
 function fitToScreen(element) {
-  element.width = window.innerWidth;
-  element.height = window.innerHeight;
+   element.width = window.innerWidth;
+     element.height = window.innerHeight;
 }
 function clearScreen() {
 
@@ -230,9 +258,9 @@ function render() {
   removeFlies();
   drawFlies();
 }
-window.addEventListener('resize', function() {
-  fitToScreen(gameScreen);
-});
+// window.addEventListener('resize', function() {
+//   fitToScreen(gameScreen);
+// });
 (function animationLoop() {
   window.requestAnimationFrame(animationLoop);
   render();
