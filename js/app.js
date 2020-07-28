@@ -2,7 +2,6 @@ let wKey = false;
 let sKey = false;
 let upKey = false;
 let downKey =false;
-
 let movementDisplay
 let scoreBoard
 let context;
@@ -11,7 +10,25 @@ let padOne;
 let padTwo;
 let ball
 
-  
+// const ball = {
+//   x : gameScreen.width/2,
+//   y : canvas.height/2,
+//   radius : 10,
+//   speed : 5,
+//   velocityX : 5,
+//   velocityY : 5,
+//   color : "white"
+
+// }
+// function update(){
+//   ball.x += velocityX; X+
+//   ball.y += valocityY; y+
+//   if( ba)
+// }
+
+
+
+
 
 // Paddle Constructor function
 function Paddle(x, y, width, height, color,) {
@@ -34,15 +51,16 @@ function Paddle(x, y, width, height, color,) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Dom loaded')
-    // DOM 
-    movementDisplay = document.getElementById('score');
-    gameScreen = document.getElementById('gamescreen');
-    // CANVAS Style
-    gamescreen.setAttribute('height', 500);
-    gamescreen.setAttribute('width', 900);
-    context = gameScreen.getContext('2d');
-    // Paddles
+  console.log('Dom loaded')
+  // DOM 
+  movementDisplay = document.getElementById('score');
+  gameScreen = document.getElementById('gamescreen');
+  // CANVAS Style
+  gamescreen.setAttribute('height', 500);
+  gamescreen.setAttribute('width', 900);
+  context = gameScreen.getContext('2d');
+  // Paddles
+    ball = new Paddle( 350, 50, 7, 7, "white")
     padOne = new Paddle(880, 250, 15, 90, 'cyan')
     padTwo = new Paddle(10, 200, 15, 90, 'cyan')
     document.addEventListener('keydown', keyPressed);
@@ -51,14 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   
   const gameLoop = () => {
-   
     // clear the canvas
     context.clearRect(0, 0, gameScreen.width, gameScreen.height);
     // display the x, y coordinates on paddles onto the DOM
     movementDisplay.textContent = `X:${padOne.x}\nY:${padOne.y}`
     movementDisplay.textContent = `X:${padTwo.x}\nY:${padTwo.y}`
-   
-    
+    ball.render()
     movementHandler() 
     padOne.render()
     padTwo.render()
@@ -67,80 +83,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // w: 87, a:65, // uparrow// 38 //downarrow 40 
     switch (e.keyCode) {
       case (87): // w up
-        wKey = true;
-        // if (padOne.y > 0) padOne.y -=20
-        break;
+      wKey = true;
+      // if (padOne.y > 0) padOne.y -=20
+      break;
       case (83): // s down
-        sKey = true;
-        //if (padOne.y + padOne.height < gameScreen.height) padOne.y +=20
-        break;
+      sKey = true;
+      //if (padOne.y + padOne.height < gameScreen.height) padOne.y +=20
+      break;
       case (38): //  up button
-        upKey = true;
-        //if (padTwo.y > 0) padTwo.y -=20
-        break;
+      upKey = true;
+      //if (padTwo.y > 0) padTwo.y -=20
+      break;
       case (40): // down button
-        downKey = true;
-        //if (padTwo.y + padTwo.height < gameScreen.height) padTwo.y +=20
-        break;
-      }
-      console.log(e)
+      downKey = true;
+      //if (padTwo.y + padTwo.height < gameScreen.height) padTwo.y +=20
+      break;
     }
-    const keyReleased = e =>{
-      switch (e.keyCode) {
-        case (87): // w down
-          wKey = false;
-  
+    console.log(e)
+  }
+  const keyReleased = e =>{
+    switch (e.keyCode) {
+      case (87): // w down
+          wKey = false;          
         case (83): // w down
-          sKey = false;
-    
-        case (38): // w down
+          sKey = false;         
+          case (38): // w down
           upKey = false;
-      
-        case (40): // w down
+          case (40): // w down
           downKey = false;
-      }  
-    }
-    const movementHandler = ()=> {
-      if(wKey == true){
-        padTwo.moveUp()
+        }  
       }
-    
-      if(sKey == true){
-        padTwo.moveDown()
+      const movementHandler = ()=> {
+        if(wKey == true){
+          padTwo.moveUp()
+        }
+        if(sKey == true){
+          padTwo.moveDown()
+        }
+        if(upKey == true){
+          padOne.moveUp()
+        }
+        if(downKey == true){
+          padOne.moveDown()
+        }
       }
-
-      if(upKey == true){
-        padOne.moveUp()
-      }
-    
-      if(downKey == true){
-        padOne.moveDown()
-      }
-    }
-    
-    
-    
-   
-     
-
-
-
-
+      
 var MAX_FLIES = 20;
 var FLY_XSPEED_RANGE =[-2, 1];
 var FLY_YSPEED_RANGE = [-1, 0.5];
 var FLY_SIZE_RANGE = [1, 5];
 var FLY_LIFESPAN_RANGE = [75, 150];
-
 var flies = [];
-
 function randomRange(min, max) {
   return Math.random() * (max - min) + min;
 }
-
 function Fly(options) {
   if (!options) { options = {}; }
-
   this.x = options.x || randomRange(0, gameScreen.width);
   this.y = options.y || randomRange(0, gameScreen.height);
   this.xSpeed = options.xSpeed || randomRange(FLY_XSPEED_RANGE[0], FLY_XSPEED_RANGE[1]);
@@ -148,7 +146,6 @@ function Fly(options) {
   this.size = options.size || randomRange(FLY_SIZE_RANGE[0], FLY_SIZE_RANGE[1]);
   this.lifeSpan = options.lifeSpan || randomRange(FLY_LIFESPAN_RANGE[0], FLY_LIFESPAN_RANGE[1]);
   this.age = 0;
-
   this.colors = options.colors || {
     red: 217,
     green: 73,
@@ -156,31 +153,23 @@ function Fly(options) {
     alpha: 0
   };
 }
-
 function fitToScreen(element) {
   element.width = window.innerWidth;
   element.height = window.innerHeight;
 }
-
 function clearScreen() {
-  // context.beginPath();
-  // context.fillStyle = 'rgb(61, 61, 59)';
-  // context.rect(0, 0, gameScreen.width, gameScreen.height);
-  // // context.fill();
-}
 
+}
 function createFlies() {
   if (flies.length !== MAX_FLIES) {
     flies.push(new Fly());
   }
 }
-
 function moveFlies() {
   flies.forEach(function(fly) {
     fly.x += fly.xSpeed;
     fly.y += fly.ySpeed;
     fly.age++;
-
     if (fly.age < fly.lifeSpan / 2) {
       fly.colors.alpha += 1 / (fly.lifeSpan / 2);
 
@@ -192,19 +181,15 @@ function moveFlies() {
     }
   });
 }
-
 function removeFlies() {
   var i = flies.length;
-
   while (i--) {
     var fly = flies[i];
-
     if (fly.age >= fly.lifeSpan) {
       flies.splice(i, 1);
     }
   }
 }
-
 function drawFlies() {
   flies.forEach(function(fly) {
     context.beginPath();
@@ -220,7 +205,6 @@ function drawFlies() {
     context.fill();
   });
 }
-
 function render() {
   clearScreen();
   createFlies();
@@ -228,11 +212,9 @@ function render() {
   removeFlies();
   drawFlies();
 }
-
 window.addEventListener('resize', function() {
   fitToScreen(gameScreen);
 });
-
 (function animationLoop() {
   window.requestAnimationFrame(animationLoop);
   render();
