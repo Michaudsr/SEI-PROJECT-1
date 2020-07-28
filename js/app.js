@@ -2,7 +2,6 @@ let wKey = false;
 let sKey = false;
 let upKey = false;
 let downKey =false;
-
 let pOneScore = 0;
 let pTwoScore = 0;
 let xWins = 0;
@@ -23,13 +22,14 @@ function ballMove(){
   ballX += velocityX//increments the ball to the right
   ballY += velocityY
 }
-
 function borderCollision(){
   if(ballY <= gameScreen.height){
     velocityY = -velocityY ;
   }
   if(ballX >= gameScreen.width){
     ball.alive= false ;
+    pOneScore++;
+    //Move your pOneScore++ here
   }
   if(ballY >= 0 ){
     velocityY = -velocityY;
@@ -37,21 +37,16 @@ function borderCollision(){
   if(ballX <= 0 ){
     ball.alive =false;
   }
-  if(ballX >= gameScreen.width){
-    pOneScore++;
-  }
-  if(ballX <= padTwo.x + padTwo.width){
+
+  if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height){
     velocityX = -velocityX;
   }
-  
-  if(ballX + ballWidth >= padOne.x){
-    velocitX = - velocityX;
-
+  if(ballX <= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height){
+    velocityX = -velocityX;
   }
-    
+
   
-}
-    
+}  
 function score (){
   if( ballY && ballX >= gameScreen.width){
     console.log ('score')
