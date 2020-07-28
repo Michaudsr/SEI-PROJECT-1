@@ -8,23 +8,35 @@ let context;
 let gameScreen;
 let padOne;
 let padTwo;
-let ball
+let ball;
+let ballX = 447;//will always start here
+let ballY = 247;
+let ballHeight = 10;
+let ballWidth = 10;
+let velocityX = 1;
+let velocityY = 1;
 
-// const ball = {
-//   x : gameScreen.width/2,
-//   y : canvas.height/2,
-//   radius : 10,
-//   speed : 5,
-//   velocityX : 5,
-//   velocityY : 5,
-//   color : "white"
+function ballMove(){
+  ballX += velocityX//increments the ball to the right
+  ballY += velocityY
+}
 
-// }
-// function update(){
-//   ball.x += velocityX; X+
-//   ball.y += valocityY; y+
-//   if( ba)
-// }
+function borderCollision(){
+  if(ballY === gameScreen.height){
+    velocityY = -velocityY ;
+  }
+  if(ballX === gameScreen.width){
+    velocityX = -velocityX ;
+  }
+  if(ballY === 0 ){
+    velocityY = -velocityY;
+  }
+  if(ballX === 0 ){
+    velocityX = -velocityX;
+ }
+
+}
+
 
 
 
@@ -38,10 +50,10 @@ function Paddle(x, y, width, height, color,) {
   this.height = height;
   this.color = color;
   this.moveUp = function(){
-    if (this.y > 0) this.y -=20
+    if (this.y > 0) this.y -=11
   }
   this.moveDown = function(){
-    if(this.y + this.height < gameScreen.height) this.y +=20
+    if(this.y + this.height < gameScreen.height) this.y +=11
   }
   this.render = function() {
     context.fillStyle = this.color;
@@ -60,21 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
   gamescreen.setAttribute('width', 900);
   context = gameScreen.getContext('2d');
   // Paddles
-    ball = new Paddle( 350, 50, 7, 7, "white")
-    padOne = new Paddle(880, 250, 15, 90, 'cyan')
-    padTwo = new Paddle(10, 200, 15, 90, 'cyan')
+   
+    padOne = new Paddle(873, 215, 15, 90, 'cyan')
+    padTwo = new Paddle(13, 215, 15, 90, 'cyan')
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
-    let runGame = setInterval(gameLoop, 60);  
+    let runGame = setInterval(gameLoop, 20);  
   })
   
   const gameLoop = () => {
     // clear the canvas
+    
     context.clearRect(0, 0, gameScreen.width, gameScreen.height);
     // display the x, y coordinates on paddles onto the DOM
     movementDisplay.textContent = `X:${padOne.x}\nY:${padOne.y}`
     movementDisplay.textContent = `X:${padTwo.x}\nY:${padTwo.y}`
+    borderCollision()
+    ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
     ball.render()
+    ballMove()
     movementHandler() 
     padOne.render()
     padTwo.render()
@@ -127,6 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
           padOne.moveDown()
         }
       }
+    
+      
       
 var MAX_FLIES = 20;
 var FLY_XSPEED_RANGE =[-2, 1];
