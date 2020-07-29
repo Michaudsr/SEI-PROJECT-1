@@ -17,6 +17,7 @@ let ballHeight = 10;
 let ballWidth = 10;
 let velocityX = 5;
 let velocityY = 5;
+//  ball.alive = true;
 
 function ballMove(){
   ballX += velocityX//increments the ball to the right
@@ -26,39 +27,60 @@ function borderCollision(){
   if(ballY <= gameScreen.height){
     velocityY = -velocityY ;
   }
-  if(ballX >= gameScreen.width){
+  if(ballX >= gameScreen.width && ball.alive){
+    console.log(ball.alive)
+    console.log(ballX >= gameScreen.width && ball.alive)
     ball.alive= false ;
-    pOneScore++;
-    //Move your pOneScore++ here
+    const event = new CustomEvent('Goal Scored', {detail: { player: "playerOne", pointsScored: 1 }});
+    document.dispatchEvent(event);
+  
   }
   if(ballY >= 0 ){
     velocityY = -velocityY;
   }
-  if(ballX <= 0 ){
+  if(ballX <= 0 && ball.alive){
     ball.alive =false;
+    const event = new CustomEvent('Goal Scored', {detail: { player: "playerTwo", pointsScored: 1 }});
+    document.dispatchEvent(event);
+
   }
 
-  if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height){
+  if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height && ballX > padTwo.x){
     velocityX = -velocityX;
+    console.log(velocityX)
+    ballX = padTwo.x + padTwo.width;
   }
-  if(ballX <= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height){
+  if(ballX + ballWidth >= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height && ballX < padOne.x + padOne.width){
     velocityX = -velocityX;
+    ballX = padOne.x - ballWidth;
+    console.log(velocityX)
   }
 
   
 }  
-function score (){
-  if( ballY && ballX >= gameScreen.width){
-    console.log ('score')
-    }
-  }
+// function score (){
+//   if( ballY && ballX >= gameScreen.width){
+//     console.log ('score')
+//     }
+//   }
 
 
 //  if (padOne + padOne.width < ballY && paddleOne > ballY){
-  //    velocityX = -velocityX;
-  //  }
-  
+//      velocityX = -velocityX;
+//    }
+  // function Ball (x, y, width, height, color, velocityY, velocityX, alive){
+  //   this.x = x;
+  //   this.y = y;
+  //   this.width = width;
+  //   this.height = height;
+  //   this.color = color;
+  //   this.velocityY = velocityY;
+  //   this.velocityX = velocityX;
+  //   this.alive = alive;
+  //   this.moveUp = function(){
 
+  //   }      
+  // }
 
 
 
@@ -96,8 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
   context = gameScreen.getContext('2d');
   // Paddles
    
-    padOne = new Paddle(873, 215, 15, 90, 'cyan')
-    padTwo = new Paddle(13, 215, 15, 90, 'cyan')
+    padOne = new Paddle(873, 215, 15, 90, 'cyan');
+    padTwo = new Paddle(13, 215, 15, 90, 'cyan');
+    
+    document.addEventListener('Goal Scored', addScore);
     document.addEventListener('keydown', keyPressed);
     document.addEventListener('keyup', keyReleased);
     let runGame = setInterval(gameLoop, 60);  
@@ -109,11 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
     context.clearRect(0, 0, gameScreen.width, gameScreen.height);
     // display the x, y coordinates on paddles onto the DOM
     scoreBoard.innerText = `Player One: ${pOneScore}` + '\n' + `Player Two: ${pTwoScore}`
-    borderCollision()
     ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
-    score()
+    // score()
     ball.render()
     ballMove()
+    borderCollision()
     movementHandler() 
     padOne.render()
     padTwo.render()
@@ -166,6 +190,14 @@ document.addEventListener('DOMContentLoaded', () => {
           padOne.moveDown()
         }
       }
+    const addScore = e => {
+      if(ballX <= 0)
+
+      console.log("addingScore")
+      console.log(e)
+
+      }
+     
     
       
       
