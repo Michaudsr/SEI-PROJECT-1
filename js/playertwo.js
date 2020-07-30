@@ -31,6 +31,7 @@
      setTimeout(() => {
        document.body.style.backgroundColor = 'black'
      }, 50); 
+     clearTimeout()
      powerBuild = 0;
    }
  }
