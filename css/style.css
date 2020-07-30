@@ -9,17 +9,6 @@ body {
   background-repeat: space;
 }
 
-h1{
-  font-size: 40px;
-  font-family: ferrum;
-  color: rgb(197, 147, 20);
-  
-  text-shadow: teal 0px 5px 6px;
-  
-  
-   
-   
-}
 #score {
   border: 8px solid rgb(62, 95, 95);
   width: 900px;
@@ -27,22 +16,27 @@ h1{
   justify-self: center;
   margin: 0 auto;
   border-top: none;
-  background-color: whitesmoke;
-  border-radius: 40px;
-  color: rgb(245, 161, 7);
-  background-image: url(/Users/nicholasphillips/Downloads/posta.jpg);
+  background-image: url('/Users/nicholasphillips/Downloads/posta.jpg');
   background-position: 90%;
-  background-blend-mode: hard-light;
+  opacity: 90%;
+  border-radius: 40px;
   font-size: 40px;
   font-weight: 900;
-  text-shadow: teal 2px 4px 6px;
- 
+  text-align: center;
+  padding-bottom: 10px;
+  
+  
+  
+}
 
-  }
-
-   
-    
-
+h1 {
+  font-size: 60px;
+  font-family: ferrum;
+  font-weight: 900;
+  text-shadow: darkblue 11px 8px 11px;
+  color: aliceblue;
+  margin: 0;   
+} 
 
 canvas {
   border: 5px white dashed;
@@ -55,10 +49,19 @@ canvas {
   background-image: url('/Users/nicholasphillips/Documents/dis2.png');
   background-size: 100%;
   background-blend-mode: hard-light;
+}
+  
+  
+.button{
+  height: 40px;
+  background-color: bisque;
+  font-size: 20px;
+  margin: 20px;
+}
 
   
   
-}
+
 
   
 
