@@ -1,30 +1,30 @@
 
  //creating  individual score boards
- let wKey = false;
- let sKey = false;
+ let wKey = false;//up
+ let sKey = false;//down
  let upKey = false;
  let downKey =false;
  let pOneScore = 0;
  let pTwoScore = 0;
- let scoreBoardTwo = document.getElementById('score-two');
+ let scoreBoardTwo = document.getElementById('score-two');//the sscore will displa in the footer
  let xWins = 0;
  let scoreBoardOne = document.getElementById('score-one');
  // console.log(scoreBoardOne)
  let context;
- let gameScreen;
- let padOne;
- let padTwo;
+ let gameScreen;//canvas
+ let padOne;//right pad
+ let padTwo;//left pad
  let ball;
  let ballX = 447;//will always start here
  let ballY = 247;
  let ballHeight = 10;
  let ballWidth = 10;
- let velocityX = 4;
- let velocityY = 4;
+ let velocityX = 7;
+ let velocityY = 7;
  //  ball.alive = true;
- let powerBuild = 0;
+ let powerBuild = 0;//power up
  function criticalChance(){
-   let chance =(Math.random()*90) + powerBuild;
+   let chance =(Math.random()*90) + powerBuild; //random critcal chance numbers
    if (chance > 100){ //if true we are going to add to player one score
      pOneScore++;
      document.body.style.backgroundImage = "url('/Users/nicholasphillips/Downloads/lightning.jpg')";
@@ -35,7 +35,7 @@
    }
  }
  function ballMove(){
-   ballX += velocityX
+   ballX += velocityX 
    ballY += velocityY
   }
  
@@ -46,14 +46,14 @@
    if(ballX >= gameScreen.width && ball.alive){
      // console.log(ball.alive)
      // console.log(ballX >= gameScreen.width && ball.alive)
-     pOneScore++;
-     ballX=447;
+     pOneScore++; //if ball goes out of the screen reset ball
+     ballX=447; //where the ball starts
      ballY=247;
    }
    if(ballY >= 0 ){
-     velocityY = -velocityY;
+     velocityY = -velocityY; //ball hits left goes right 
    }
-   if(ballX <= 0 && ball.alive){
+   if(ballX <= 0 && ball.alive){ //ball disappears in left wall
      pTwoScore++;
      
      ballX=447;
@@ -65,7 +65,7 @@
    }
  
    if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height && ballX > padTwo.x){
-     velocityX = -velocityX;
+     velocityX = -velocityX; //paddle collision
      // console.log(velocityX)
      
      ballX = padTwo.x + padTwo.width;
@@ -74,7 +74,7 @@
      velocityX = -velocityX;
      ballX = padOne.x - ballWidth;
      powerBuild += 12;//adds 12 chance off piercing damg
-     console.log(powerBuild)
+    //  console.log(powerBuild)
      criticalChance()
      
    }

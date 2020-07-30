@@ -19,8 +19,8 @@ let ballX = 447;//will always start here
 let ballY = 247;
 let ballHeight = 10;
 let ballWidth = 10;
-let velocityX = 3;
-let velocityY = 3;
+let velocityX = 7;
+let velocityY = 7;
 //  ball.alive = true;
 let powerBuild = 0;
 function criticalChance(){
