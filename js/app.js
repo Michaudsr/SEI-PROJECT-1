@@ -9,7 +9,7 @@ let pTwoScore = 0;
 let scoreBoardTwo = document.getElementById('score-two');
 let xWins = 0;
 let scoreBoardOne = document.getElementById('score-one');
-console.log(scoreBoardOne)
+// console.log(scoreBoardOne)
 let context;
 let gameScreen;
 let padOne;
@@ -19,25 +19,33 @@ let ballX = 447;//will always start here
 let ballY = 247;
 let ballHeight = 10;
 let ballWidth = 10;
-let velocityX = 5;
-let velocityY = 5;
+let velocityX = 3;
+let velocityY = 3;
 //  ball.alive = true;
-
-function ballMove(){
-  ballX += velocityX//increments the ball to the right
-  ballY += velocityY
-function resetBall(){
-
- }
+let powerBuild = 0;
+function criticalChance(){
+  let chance =(Math.random()*90) + powerBuild;
+  if (chance > 100){ //if true we are going to add to player one score
+    pOneScore++;
+    document.body.style.backgroundImage = "url('/Users/nicholasphillips/Downloads/lightning.jpg')";
+    setTimeout(() => {
+      document.body.style.backgroundColor = 'black'
+    }, 50); 
+    powerBuild = 0;
+  }
 }
+function ballMove(){
+  ballX += velocityX
+  ballY += velocityY
+ }
+
 function borderCollision(){
-  if(ballY <= gameScreen.height){
+  if(ballY <= gameScreen.height){//ball goes right
     velocityY = -velocityY ;
   }
   if(ballX >= gameScreen.width && ball.alive){
     // console.log(ball.alive)
     // console.log(ballX >= gameScreen.width && ball.alive)
-    ball.alive= false ;
     pOneScore++;
     ballX=447;
     ballY=247;
@@ -46,8 +54,8 @@ function borderCollision(){
     velocityY = -velocityY;
   }
   if(ballX <= 0 && ball.alive){
-    ball.alive =false;
     pTwoScore++;
+    
     ballX=447;
     ballY=247;
 
@@ -59,12 +67,16 @@ function borderCollision(){
   if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height && ballX > padTwo.x){
     velocityX = -velocityX;
     // console.log(velocityX)
+    
     ballX = padTwo.x + padTwo.width;
   }
   if(ballX + ballWidth >= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height && ballX < padOne.x + padOne.width){
     velocityX = -velocityX;
     ballX = padOne.x - ballWidth;
-    // console.log(velocityX)
+    powerBuild += 12;//adds 12 chance off piercing damg
+    console.log(powerBuild)
+    criticalChance()
+    
   }
 
   
@@ -95,7 +107,7 @@ function Paddle(x, y, width, height, color,) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Dom loaded')
+  // console.log('Dom loaded')
   // DOM 
   gameScreen = document.getElementById('gamescreen');//canvas
   // CANVAS Style
@@ -104,11 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
   context = gameScreen.getContext('2d');
   // Paddles
   padTwo = new Paddle(13, 215, 15, 90, 'cyan');
-  
-  document.addEventListener('Goal Scored', addScore);
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
-  let runGame = setInterval(gameLoop, 60);  
+  let runGame = setInterval(gameLoop, 30);  
 })
 function winCondition(){
   if(pOneScore === 7){
@@ -125,6 +135,7 @@ function winCondition(){
 const gameLoop = () => {
   // clear the canvas
   winCondition()
+  // add whitecflash and crit chne
   context.clearRect(0, 0, gameScreen.width, gameScreen.height);
   // display the x, y coordinates on paddles onto the DOM
   scoreBoardOne.innerHTML = pOneScore;
@@ -132,8 +143,8 @@ const gameLoop = () => {
   ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
   padOne = new Paddle(873, ballY-45, 15, 90, 'cyan');
   //  score()
-    console.log(pOneScore)
-    console.log(scoreBoardOne)
+    // console.log(pOneScore)
+    // console.log(scoreBoardOne)
     ball.render()
     ballMove()
     borderCollision()
@@ -161,7 +172,7 @@ const gameLoop = () => {
       //if (padTwo.y + padTwo.height < gameScreen.height) padTwo.y +=20
       break;
     }
-    console.log(e)
+    // console.log(e)
   }
   const keyReleased = e =>{
     switch (e.keyCode) {
@@ -189,17 +200,7 @@ const gameLoop = () => {
           padOne.moveDown()
         }
       }
-    const addScore = e => {
-      if(ballX <= 0)
-
-      console.log("addingScore")
-      console.log(e)
-
-      }
-     
-    
-      
-      
+       
 var MAX_FLIES = 20;
 var FLY_XSPEED_RANGE =[-2, 1];
 var FLY_YSPEED_RANGE = [-1, 0.5];
