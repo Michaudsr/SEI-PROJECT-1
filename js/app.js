@@ -1,11 +1,15 @@
+
+ //creating  individual score boards
 let wKey = false;
 let sKey = false;
 let upKey = false;
 let downKey =false;
 let pOneScore = 0;
 let pTwoScore = 0;
+let scoreBoardTwo = document.getElementById('score-two');
 let xWins = 0;
-let scoreBoard
+let scoreBoardOne = document.getElementById('score-one');
+console.log(scoreBoardOne)
 let context;
 let gameScreen;
 let padOne;
@@ -22,66 +26,49 @@ let velocityY = 5;
 function ballMove(){
   ballX += velocityX//increments the ball to the right
   ballY += velocityY
+function resetBall(){
+
+ }
 }
 function borderCollision(){
   if(ballY <= gameScreen.height){
     velocityY = -velocityY ;
   }
   if(ballX >= gameScreen.width && ball.alive){
-    console.log(ball.alive)
-    console.log(ballX >= gameScreen.width && ball.alive)
+    // console.log(ball.alive)
+    // console.log(ballX >= gameScreen.width && ball.alive)
     ball.alive= false ;
-    const event = new CustomEvent('Goal Scored', {detail: { player: "playerOne", pointsScored: 1 }});
-    document.dispatchEvent(event);
-  
+    pOneScore++;
+    ballX=447;
+    ballY=247;
   }
   if(ballY >= 0 ){
     velocityY = -velocityY;
   }
   if(ballX <= 0 && ball.alive){
     ball.alive =false;
-    const event = new CustomEvent('Goal Scored', {detail: { player: "playerTwo", pointsScored: 1 }});
-    document.dispatchEvent(event);
+    pTwoScore++;
+    ballX=447;
+    ballY=247;
 
+  }
+  if (ballX <= padOne.height /2){
+    velocityX = +velocityX;
   }
 
   if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height && ballX > padTwo.x){
     velocityX = -velocityX;
-    console.log(velocityX)
+    // console.log(velocityX)
     ballX = padTwo.x + padTwo.width;
   }
   if(ballX + ballWidth >= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height && ballX < padOne.x + padOne.width){
     velocityX = -velocityX;
     ballX = padOne.x - ballWidth;
-    console.log(velocityX)
+    // console.log(velocityX)
   }
 
   
-}  
-// function score (){
-//   if( ballY && ballX >= gameScreen.width){
-//     console.log ('score')
-//     }
-//   }
-
-
-//  if (padOne + padOne.width < ballY && paddleOne > ballY){
-//      velocityX = -velocityX;
-//    }
-  // function Ball (x, y, width, height, color, velocityY, velocityX, alive){
-  //   this.x = x;
-  //   this.y = y;
-  //   this.width = width;
-  //   this.height = height;
-  //   this.color = color;
-  //   this.velocityY = velocityY;
-  //   this.velocityX = velocityX;
-  //   this.alive = alive;
-  //   this.moveUp = function(){
-
-  //   }      
-  // }
-
+ }  
 
 
 
@@ -110,31 +97,43 @@ function Paddle(x, y, width, height, color,) {
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Dom loaded')
   // DOM 
-  scoreBoard = document.getElementById('score');
-  gameScreen = document.getElementById('gamescreen');
+  gameScreen = document.getElementById('gamescreen');//canvas
   // CANVAS Style
   gamescreen.setAttribute('height', 500);
   gamescreen.setAttribute('width', 900);
   context = gameScreen.getContext('2d');
   // Paddles
-   
-    padOne = new Paddle(873, 215, 15, 90, 'cyan');
-    padTwo = new Paddle(13, 215, 15, 90, 'cyan');
-    
-    document.addEventListener('Goal Scored', addScore);
-    document.addEventListener('keydown', keyPressed);
-    document.addEventListener('keyup', keyReleased);
-    let runGame = setInterval(gameLoop, 60);  
-  })
+  padTwo = new Paddle(13, 215, 15, 90, 'cyan');
   
-  const gameLoop = () => {
-    // clear the canvas
-    
-    context.clearRect(0, 0, gameScreen.width, gameScreen.height);
-    // display the x, y coordinates on paddles onto the DOM
-    scoreBoard.innerText = `Player One: ${pOneScore}` + '\n' + `Player Two: ${pTwoScore}`
-    ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
-    // score()
+  document.addEventListener('Goal Scored', addScore);
+  document.addEventListener('keydown', keyPressed);
+  document.addEventListener('keyup', keyReleased);
+  let runGame = setInterval(gameLoop, 60);  
+})
+function winCondition(){
+  if(pOneScore === 7){
+    pOneScore = 0;
+    alert("Player One Nuked You!")
+    location.reload();
+  }
+  if(pTwoScore === 7) {
+    pTwoScore = 0;
+    alert("Player Two Nuked You!")
+    location.reload();
+  }
+}
+const gameLoop = () => {
+  // clear the canvas
+  winCondition()
+  context.clearRect(0, 0, gameScreen.width, gameScreen.height);
+  // display the x, y coordinates on paddles onto the DOM
+  scoreBoardOne.innerHTML = pOneScore;
+  scoreBoardTwo.innerHTML = pTwoScore;// updating the score
+  ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
+  padOne = new Paddle(873, ballY-45, 15, 90, 'cyan');
+  //  score()
+    console.log(pOneScore)
+    console.log(scoreBoardOne)
     ball.render()
     ballMove()
     borderCollision()

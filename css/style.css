@@ -1,56 +1,70 @@
 body {
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+  text-align: center;
+  align-content: center;
+  background-color: rgb(0, 0, 0);
+  background-size: cover;
+  background-repeat: space;
+}
+
+h1{
+  font-size: 40px;
+  font-family: ferrum;
+  color: rgb(197, 147, 20);
+  
+  text-shadow: teal 0px 5px 6px;
+  
+  
    
-
-  }
-  h1{
-    margin-top: 10px;
-    font-size: 24px;
-  }
-  
-  body {
-    padding-top: 10px;
-    text-align: center;
-    align-content: center;
-    background-color: rgb(0, 0, 0);
-    background-size: cover;
-    background-repeat: space;
-  }
-  
-  #score {
-    border: 5px solid whitesmoke;
-    width: 900px;
-    height: 150px;
-    justify-self: center;
-    margin: 0 auto;
-    border-top: none;
-    background-color: whitesmoke;
-    border-radius: 12px;
-    color: black;
-    }
-
-    h1, h2 {
-      font-family: monospace;
-      color: rgb(197, 147, 20);
-    }
-
-  canvas {
-    border: 5px white dashed;
-    border-bottom: none;
-    background-color: #222;
-    /* width: 900px;
-    height: 500px; */
-    margin: 0 auto;
-    border-radius: 30px;
-    background-image: url('/Users/nicholasphillips/Documents/dis2.png');
-    background-size: 100%;
-    background-blend-mode: hard-light;
-    
-    
-  }
+   
+}
+#score {
+  border: 8px solid rgb(62, 95, 95);
+  width: 900px;
+  height: 150px;
+  justify-self: center;
+  margin: 0 auto;
+  border-top: none;
+  background-color: whitesmoke;
+  border-radius: 40px;
+  color: rgb(245, 161, 7);
+  background-image: url(/Users/nicholasphillips/Downloads/posta.jpg);
+  background-position: 90%;
+  background-blend-mode: hard-light;
+  font-size: 40px;
+  font-weight: 900;
+  text-shadow: teal 2px 4px 6px;
  
+
+  }
+
+   
     
+
+
+canvas {
+  border: 5px white dashed;
+  border-bottom: none;
+  background-color: #222;
+  /* width: 900px;
+  height: 500px; */
+  margin: 0 auto;
+  border-radius: 30px;
+  background-image: url('/Users/nicholasphillips/Documents/dis2.png');
+  background-size: 100%;
+  background-blend-mode: hard-light;
+
+  
+  
+}
+
+  
+
+  
+  
+  
  
    
  
