@@ -16,7 +16,7 @@ body {
   justify-self: center;
   margin: 0 auto;
   border-top: none;
-  background-image: url('/Users/nicholasphillips/Downloads/posta.jpg');
+  background-image: url('./posta.jpg');
   background-position: 90%;
   opacity: 90%;
   border-radius: 40px;
