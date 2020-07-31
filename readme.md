@@ -365,7 +365,6 @@ function winCondition(){
  
 ## Resources and References
 
--
 - Google
 - Stack OverFlow
 - w3
