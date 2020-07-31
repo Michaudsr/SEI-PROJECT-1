@@ -1,6 +1,6 @@
 document.body.style.backgroundImage = "url('https://i.imgur.com/2Fy80qR.jpg')"
 const themeMusic = new Audio();
-themeMusic.volumne = 0.2;
+themeMusic.volume = 0.2;
 themeMusic.src = "assets/field.mp3";
 document.querySelector("body").appendChild(themeMusic);
 let gameActive = false;
