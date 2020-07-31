@@ -1,4 +1,5 @@
-const themeMusic = new Audio();
+const themeMusic = new Audio(); 
+themeMusic.volume = 0.2;
 themeMusic.src = "assets/field.mp3";
 document.querySelector("body").appendChild(themeMusic);
 

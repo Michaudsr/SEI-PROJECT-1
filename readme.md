@@ -1,4 +1,4 @@
-# PONG DYSTOPIA for SEI project 1 Introduction
+# PONG DYSTOPIA for SEI Project 1 Introduction
 I chose to do pong because I really wanted to dive into th emany aspects of canvas that it would take to complete this game. I love dystopian art, so I chose decided to make my theme post apocalyptic. I am exited to get my coding mojo going with this challenging project.
 
 # PONG DYSTOPIA - how to play
@@ -267,7 +267,10 @@ these events all have to do with moving the paddle by pressing the keybaord keys
       padTwo.render()
     }
    ```
-   ## Ball 
+   ## Ball Movement and Collision Detection
+
+
+   ```JS
     function ballMove(){
       ballX += velocityX // ballX += velocityX add value to the right opperand
       ballY += velocityY // ballY += VelocityY add value to right opperand
@@ -316,8 +319,15 @@ these events all have to do with moving the paddle by pressing the keybaord keys
         
       }
     
+    
       
-     }  
+     } 
+```
+
+## Optional Styling and Extra Features
+i decided to try to outsmart the AI buy trying to beat it at another game since it is impossible to beat. I created a function called critical chance and powerbuild where i have a chance to beat it by hittin it with a power ball. when this happens at a random calculation and you know you got a ritcal hit because a lightning blast will happen and time out after a couple seconds.
+
+```js
 function criticalChance(){// make a critical chance funtion to beat the enemies
   let chance =(Math.random()*90) + powerBuild;
   console.log("critchance: ", chance)
@@ -333,14 +343,11 @@ function criticalChance(){// make a critical chance funtion to beat the enemies
   }
   
 }
+```
 
-
-
-
-
-
-
-
+## For the win and reaload
+if each player score is 7 that player nukes the other and Game reset. and alert stops the whole game and reload clears the game.
+```js
 function winCondition(){
   if(pOneScore === 7){
     pOneScore = 0;
@@ -354,6 +361,18 @@ function winCondition(){
     location.reload();
   }
 }
+```
+ 
+## Resources and References
+
+-
+- Google
+- Stack OverFlow
+- w3
+- Mozilla
+
+
+
     
  
    
