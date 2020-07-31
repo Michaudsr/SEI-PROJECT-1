@@ -1,40 +1,29 @@
-
- //creating  individual score boards
- let wKey = false;//up
- let sKey = false;//down
- let upKey = false;
- let downKey =false;
+document.body.style.backgroundImage = "url('https://i.imgur.com/2Fy80qR.jpg')"
+const themeMusic = new Audio();
+themeMusic.src = "assets/field.mp3";
+document.querySelector("body").appendChild(themeMusic);
+let gameActive = false;
+let wKey = false;//up
+let sKey = false;//down
+let upKey = false;
+let downKey =false;
  let pOneScore = 0;
  let pTwoScore = 0;
- let scoreBoardTwo = document.getElementById('score-two');//the sscore will displa in the footer
- let xWins = 0;
+ let scoreBoardTwo = document.getElementById('score-two');//the sscore will display in the footer
  let scoreBoardOne = document.getElementById('score-one');
  // console.log(scoreBoardOne)
- let context;
+ let context;//
  let gameScreen;//canvas
  let padOne;//right pad
  let padTwo;//left pad
- let ball;
- let ballX = 447;//will always start here
+ let ball;//
+ let ballX = 447;//will always start here at these coordinates
  let ballY = 247;
  let ballHeight = 10;
  let ballWidth = 10;
- let velocityX = 7;
+ let velocityX = 7
  let velocityY = 7;
- //  ball.alive = true;
- let powerBuild = 0;//power up
- function criticalChance(){
-   let chance =(Math.random()*90) + powerBuild; //random critcal chance numbers
-   if (chance > 100){ //if true we are going to add to player one score
-     pOneScore++;
-     document.body.style.backgroundImage = "url('/Users/nicholasphillips/Downloads/lightning.jpg')";
-     setTimeout(() => {
-       document.body.style.backgroundColor = 'black'
-     }, 50); 
-     clearTimeout()
-     powerBuild = 0;
-   }
- }
+
  function ballMove(){
    ballX += velocityX 
    ballY += velocityY
@@ -56,8 +45,7 @@
    }
    if(ballX <= 0 && ball.alive){ //ball disappears in left wall
      pTwoScore++;
-     
-     ballX=447;
+     ballX=447;//ball returns to coordinates int the middle
      ballY=247;
  
    }
@@ -68,24 +56,21 @@
    if(ballX <= padTwo.x + padTwo.width && ballY + ballHeight > padTwo.y && ballY < padTwo.y + padTwo.height && ballX > padTwo.x){
      velocityX = -velocityX; //paddle collision
      // console.log(velocityX)
+     vel
      
      ballX = padTwo.x + padTwo.width;
    }
    if(ballX + ballWidth >= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height && ballX < padOne.x + padOne.width){
      velocityX = -velocityX;
      ballX = padOne.x - ballWidth;
-     powerBuild += 12;//adds 12 chance off piercing damg
+    //  powerBuild += 12;//adds 12 chance off piercing damg
     //  console.log(powerBuild)
-     criticalChance()
+    //  criticalChance()
      
    }
  
    
   }  
- 
- 
- 
- 
  // Paddle Constructor function
  function Paddle(x, y, width, height, color,) {
    this.x = x;
@@ -109,7 +94,7 @@
  
  document.addEventListener('DOMContentLoaded', () => {
    // console.log('Dom loaded')
-   // DOM 
+    // console.log("game is active ", gameActive)
    gameScreen = document.getElementById('gamescreen');//canvas
    // CANVAS Style
    gamescreen.setAttribute('height', 500);
@@ -124,36 +109,37 @@
  })
  function winCondition(){
    if(pOneScore === 7){
-     pOneScore = 0;
-     alert("Player One Nuked You!")
-     location.reload();
+    pOneScore = 0;
+    alert("Player Two Nuked You!")
+    // location.reload();
    }
    if(pTwoScore === 7) {
+       alert("Player One Nuked You!")
      pTwoScore = 0;
-     alert("Player Two Nuked You!")
-     location.reload();
+    //  gameActive = false
+    //  location.reload();
    }
  }
  const gameLoop = () => {
    // clear the canvas
-   winCondition()
-   // add whitecflash and crit chne
-   context.clearRect(0, 0, gameScreen.width, gameScreen.height);
+   winCondition()//calls the winCondition
+    context.clearRect(0, 0, gameScreen.width, gameScreen.height);
    // display the x, y coordinates on paddles onto the DOM
    scoreBoardOne.innerHTML = pOneScore;
    scoreBoardTwo.innerHTML = pTwoScore;// updating the score
    ball = new Paddle( ballX, ballY, ballWidth, ballHeight, "white")
    //  score()
-     // console.log(pOneScore)
+      // console.log("game active ", gameActive)
      // console.log(scoreBoardOne)
-     ball.render()
-     ballMove()
-     borderCollision()
-     movementHandler() 
-     padOne.render()
-     padTwo.render()
+     ball.render()//calling
+     ballMove()//calling
+     borderCollision()//calling
+     movementHandler()//calling 
+     padOne.render()//calling
+     padTwo.render()//calling
    }
    const keyPressed = e => {
+    themeMusic.play()
      // w: 87, a:65, // uparrow// 38 //downarrow 40 
      switch (e.keyCode) {
        case (87): // w up
@@ -202,7 +188,7 @@
          }
        }
         
- var MAX_FLIES = 20;
+ var MAX_FLIES = 20;//every thing below here is a spliced EFFECT TEMPLATE
  var FLY_XSPEED_RANGE =[-2, 1];
  var FLY_YSPEED_RANGE = [-1, 0.5];
  var FLY_SIZE_RANGE = [1, 5];
@@ -294,4 +280,11 @@
    render();
  })();
  
+//  document.getElementById('player-one').addEventListener('click', () => {
+//     gameActive = true;
+//     console.log("the game is active ", gameActive)
+  
+//   })
+  
+      
      

@@ -1,13 +1,15 @@
+const themeMusic = new Audio();
+themeMusic.src = "assets/field.mp3";
+document.querySelector("body").appendChild(themeMusic);
 
- //creating  individual score boards
+let gameActive = false
 let wKey = false;
 let sKey = false;
 let upKey = false;
 let downKey =false;
 let pOneScore = 0;
 let pTwoScore = 0;
-let scoreBoardTwo = document.getElementById('score-two');
-let xWins = 0;
+let scoreBoardTwo = document.getElementById('score-two');//scoreboard
 let scoreBoardOne = document.getElementById('score-one');
 // console.log(scoreBoardOne)
 let context;
@@ -16,27 +18,31 @@ let padOne;
 let padTwo;
 let ball;
 let ballX = 447;//will always start here
-let ballY = 247;
-let ballHeight = 10;
-let ballWidth = 10;
-let velocityX = 7;
-let velocityY = 7;
-//  ball.alive = true;
-let powerBuild = 0;
-function criticalChance(){
+let ballY = 247;//coordinates 
+let ballHeight = 10;// used in return conditionals for collion with pads
+let ballWidth = 10;// same
+let velocityX = 7;//ball speed x
+let velocityY = 7;//ball speed y
+let powerBuild = 0; //power move against computer
+
+function criticalChance(){// make a critical chance funtion to beat the enemies
   let chance =(Math.random()*90) + powerBuild;
+  console.log("critchance: ", chance)
   if (chance > 100){ //if true we are going to add to player one score
     pOneScore++;
     document.body.style.backgroundImage = "url('/Users/nicholasphillips/Downloads/lightning.jpg')";
-    setTimeout(() => {
-      document.body.style.backgroundColor = 'black'
-    }, 50); 
+    console.log("powerbuildbefore: ", powerBuild)
     powerBuild = 0;
+    console.log("powerbuildone: ", powerBuild)
   }
+  if(chance < 100){
+    document.body.style.backgroundImage = 'none';
+  }
+  
 }
 function ballMove(){
-  ballX += velocityX
-  ballY += velocityY
+  ballX += velocityX // ballX += velocityX add value to the right opperand
+  ballY += velocityY // ballY += VelocityY add value to right opperand
  }
 
 function borderCollision(){
@@ -51,7 +57,7 @@ function borderCollision(){
     ballY=247;
   }
   if(ballY >= 0 ){
-    velocityY = -velocityY;
+    velocityY = -velocityY;// assign to its self to move in opposit direction
   }
   if(ballX <= 0 && ball.alive){
     pTwoScore++;
@@ -69,6 +75,9 @@ function borderCollision(){
     // console.log(velocityX)
     
     ballX = padTwo.x + padTwo.width;
+    // powerBuild += 12;//adds 12 chance off piercing damg
+    // console.log(powerBuild)
+    // criticalChance()
   }
   if(ballX + ballWidth >= padOne.x && ballY + ballHeight > padOne.y && ballY < padOne.y + padOne.height && ballX < padOne.x + padOne.width){
     velocityX = -velocityX;
@@ -125,6 +134,7 @@ function winCondition(){
     pOneScore = 0;
     alert("Player One Nuked You!")
     location.reload();
+    
   }
   if(pTwoScore === 7) {
     pTwoScore = 0;
@@ -153,6 +163,7 @@ const gameLoop = () => {
     padTwo.render()
   }
   const keyPressed = e => {
+    themeMusic.play()
     // w: 87, a:65, // uparrow// 38 //downarrow 40 
     switch (e.keyCode) {
       case (87): // w up
@@ -292,5 +303,11 @@ function render() {
   window.requestAnimationFrame(animationLoop);
   render();
 })();
+
+// document.getElementById('player-one').addEventListener('click', () => {
+//   gameActive = true;
+//   console.log("the game is active ", gameActive)
+
+// })
 
     
