@@ -59,7 +59,16 @@ canvas {
   margin: 20px;
 }
 
-  
+p{
+  font-size: 24px;
+  color: white;
+  height: 100px;
+  width: 500px;
+  margin: auto;
+  text-align: justify;
+  font-family: monospace;
+}
+
   
 
 

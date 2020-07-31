@@ -2,7 +2,7 @@
 I chose to do pong because I really wanted to dive into th emany aspects of canvas that it would take to complete this game. I love dystopian art, so I chose decided to make my theme post apocalyptic. I am exited to get my coding mojo going with this challenging project.
 
 # PONG DYSTOPIA - how to play
-The intial game screen will give you a choice of playing against a superintelligent AI playerthat is merely unbeatabl unless you hang in there. Use the W key for and S key for down. Eventually you will cause critical damage and weaken the opponent. If you hang in there you can win. The Two Player mode is accessible on one keyboard using the w,s keys and the up and down arrow buttons. If you get 7 points againt your opponent you nuke their faction. Goodluck!
+The intial game screen will give you a choice of playing against a superintelligent AI player that is merely unbeatabl unless you hang in there. Use the W key for and S key for down. Eventually you will cause critical damage and weaken the opponent. If you hang in there you can win. The Two Player mode is accessible on one keyboard using the w and s keys and the up and down arrow buttons. If you get 7 points against your opponent you nuke their faction. Goodluck!
 
 ## Technologies used
 - HTML(canvas)
@@ -10,7 +10,7 @@ The intial game screen will give you a choice of playing against a superintellig
 - Javascript
 
 ## Html
- I chose a landing page with forms that targets the separate HTML files for each game mode. I used only one CSS file for all three HTML files. So in total 3 HTML files named semantically ( oneplayer.html with oneplayer.js an twoplayer.html with twoplayer.js) Because the demands were different to provide a different ouctome I had to copy the code for the twoplyer files and rewire them to meet their goals.
+ I chose a landing page with forms that targets the separate HTML files for each game mode. I used only one CSS file for all three HTML files. So in total 3 HTML files named semantically ( oneplayer.html with oneplayer.js an twoplayer.html with twoplayer.js.) Considering, the demands were different to provide a different outcome, I had to copy the code for the twoplyer files and rewire them to meet their goals.
 
 ## Landing Page
 ```html
@@ -157,7 +157,6 @@ let gameScreen;
 //creating the variables for the paddles
 let padOne;
 let padTwo;
-
 // creating variables for the ball and postion value of the ball
 let ball;
 let ballX = 447;//will always start here
@@ -169,8 +168,8 @@ let velocityY = 7;//ball speed y
 let powerBuild = 0; //power move against computer
 ```
 ### Constructing the Paddle with an Object Constructor Function
-This csontructor will help us creat many of the same type of objects requiring the same parameters.
-I will create the player one paddle, player two(or computer) paddle, and the ball with the contructor. I will also nest other fucntion inside the constructor function. which we will later use in th functionality of our paddles and the ball.
+This constructor will help us creat many of the same type of objects requiring the same parameters.
+I will create the player one paddle, player two(or computer) paddle, and the ball with the constructor. I will also nest other fucntion inside the constructor function. which we will later use in th functionality of our paddles and the ball.
 
 ```JS
     function Paddle(x, y, width, height, color,) {
@@ -334,7 +333,7 @@ I decided to try to outsmart the AI buy trying to beat it at another game since 
 - (https://onaircode.com/creative-css3-animation-examples/)
 - (https://onaircode.com/html-css-hero-image-background-examples/)
 - (https://onaircode.com/amazing-particles-animation-with-css-and-javascript/)
--  (https://onaircode.com/image-animation-html-css-transition-effects/)
+- (https://onaircode.com/image-animation-html-css-transition-effects/)
 
 
 ```js

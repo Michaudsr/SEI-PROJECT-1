@@ -3,6 +3,8 @@ themeMusic.volume = 0.2;
 themeMusic.src = "assets/field.mp3";
 document.querySelector("body").appendChild(themeMusic);
 
+
+
 let gameActive = false
 let wKey = false;
 let sKey = false;
