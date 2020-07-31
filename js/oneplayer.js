@@ -1,5 +1,5 @@
 const themeMusic = new Audio(); 
-themeMusic.volume = 0.2;
+themeMusic.volume = 0.3;
 themeMusic.src = "assets/field.mp3";
 document.querySelector("body").appendChild(themeMusic);
 
@@ -21,7 +21,7 @@ let padOne;
 let padTwo;
 let ball;
 let ballX = 447;//will always start here
-let ballY = 247;//coordinates 
+let ballY = 240;//coordinates 
 let ballHeight = 10;// used in return conditionals for collion with pads
 let ballWidth = 10;// same
 let velocityX = 7;//ball speed x
@@ -57,7 +57,7 @@ function borderCollision(){
     // console.log(ballX >= gameScreen.width && ball.alive)
     pOneScore++;
     ballX=447;
-    ballY=247;
+    ballY=240;
   }
   if(ballY >= 0 ){
     velocityY = -velocityY;// assign to its self to move in opposit direction
@@ -66,7 +66,7 @@ function borderCollision(){
     pTwoScore++;
     
     ballX=447;
-    ballY=247;
+    ballY=240;
 
   }
   if (ballX <= padOne.height /2){
