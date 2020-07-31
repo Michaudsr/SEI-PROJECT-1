@@ -36,7 +36,7 @@ let downKey =false;
    }
    if(ballX >= gameScreen.width && ball.alive){
      // console.log(ball.alive)
-     // console.log(ballX >= gameScreen.width && ball.alive)
+     
      pOneScore++; //if ball goes out of the screen reset ball
      ballX=447; //where the ball starts
      ballY=247;
