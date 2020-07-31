@@ -30,7 +30,7 @@ function criticalChance(){// make a critical chance funtion to beat the enemies
   console.log("critchance: ", chance)
   if (chance > 100){ //if true we are going to add to player one score
     pOneScore++;
-    document.body.style.backgroundImage = "url('/Users/nicholasphillips/Downloads/lightning.jpg')";
+    document.body.style.backgroundImage = "url('./lightning.jpg')";
     console.log("powerbuildbefore: ", powerBuild)
     powerBuild = 0;
     console.log("powerbuildone: ", powerBuild)
