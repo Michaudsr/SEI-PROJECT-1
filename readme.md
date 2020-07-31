@@ -5,12 +5,12 @@ I chose to do pong because I really wanted to dive into th emany aspects of canv
 The intial game screen will give you a choice of playing against a superintelligent AI playerthat is merely unbeatabl unless you hang in there. Use the W key for and S key for down. Eventually you will cause critical damage and weaken the opponent. If you hang in there you can win. The Two Player mode is accessible on one keyboard using the w,s keys and the up and down arrow buttons. If you get 7 points againt your opponent you nuke their faction. Goodluck!
 
 ## Technologies used
--HTML(canvas)
--CSS
--Javascript
+- HTML(canvas)
+- CSS
+- Javascript
 
 ## Html
-because i have Two different game modes i chose a landing page with forms that targets the separate HTML files for each game mode. I used only one CSS file for all three HTML files. So in total 3 HTML files named semantically ( oneplayer.html with oneplayer.js an twoplayer.html with twoplayer.js) Because the demands were different to provide a different ouctome I had to copy the code for the twoplyer files and rewire them to meet their goals.
+ I chose a landing page with forms that targets the separate HTML files for each game mode. I used only one CSS file for all three HTML files. So in total 3 HTML files named semantically ( oneplayer.html with oneplayer.js an twoplayer.html with twoplayer.js) Because the demands were different to provide a different ouctome I had to copy the code for the twoplyer files and rewire them to meet their goals.
 
 ## Landing Page
 ```html
@@ -48,6 +48,7 @@ because i have Two different game modes i chose a landing page with forms that t
 
 
 The html setup is very basic. Using canvas we only need a few elements, including the canvas and footer elements. The HTML canvas element is used to draw graphics on-the-fly via Javascript. We will also manipulate the DOM to add to the layout in Javascriot. We will go the canvas and id of(`gamescreen`) and the footer an id of(`#score`).
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -169,7 +170,7 @@ let powerBuild = 0; //power move against computer
 ```
 ### Constructing the Paddle with an Object Constructor Function
 This csontructor will help us creat many of the same type of objects requiring the same parameters.
-i will create the player one paddle, player two(or computer) paddle, and the ball with the contructor. i will also nest other fucntion inside the constructor function. which we will later use in th functionality of our paddles and the ball.
+I will create the player one paddle, player two(or computer) paddle, and the ball with the contructor. I will also nest other fucntion inside the constructor function. which we will later use in th functionality of our paddles and the ball.
 
 ```JS
     function Paddle(x, y, width, height, color,) {
@@ -192,7 +193,7 @@ i will create the player one paddle, player two(or computer) paddle, and the bal
     }
 ```
   ## Dom Events
-  I set various thinds in the eventlistener, including the computer paddle, the key press and release event, the set interval for the gameloop, and the context of the canvas.
+  In the eventlistener, I set various lines of code, setAttribute( for canvas context), handlers, the gameloop variable, and declaring the computer paddle, the key press and release event, the set interval for the gameloop, and the context of the canvas.
   ```JS
   document.addEventListener('DOMContentLoaded', () => {
   gameScreen = document.getElementById('gamescreen');//canvas
@@ -209,7 +210,7 @@ i will create the player one paddle, player two(or computer) paddle, and the bal
 
 ```
 ## Key pressed, Key Realeased, and movement handler.
-these events all have to do with moving the paddle by pressing the keybaord keys. the keyboard keys are assigned to values that are in the case statement to trigger the event. keyPressed and keyReleased are very semantic.
+These events all have to do with moving the paddle by pressing the keybaord keys. the keyboard keys are assigned to values that are in the case statement to trigger the event. keyPressed and keyReleased are very semantic.
 ```JS
     const keyPressed = e => {
       themeMusic.play()
@@ -268,6 +269,7 @@ these events all have to do with moving the paddle by pressing the keybaord keys
     }
    ```
    ## Ball Movement and Collision Detection
+   Below is the process i wen through to get the ball moving and the ball to bounce off the top and bottom wall, disappear into the left and right walls( so there is a score and win), bounce off the paddles, incremente the score(if the ball is greater or equal than the canvas or less than or equal to 0), and reset the ball to the middle of the canvas to be moved in the oppsite direction of the scorer. I also put my special ability in the border collision function.
 
 
    ```JS
@@ -325,7 +327,15 @@ these events all have to do with moving the paddle by pressing the keybaord keys
 ```
 
 ## Optional Styling and Extra Features
-i decided to try to outsmart the AI buy trying to beat it at another game since it is impossible to beat. I created a function called critical chance and powerbuild where i have a chance to beat it by hittin it with a power ball. when this happens at a random calculation and you know you got a ritcal hit because a lightning blast will happen and time out after a couple seconds.
+I decided to try to outsmart the AI buy trying to beat it at another game since it is impossible to beat. I created a function called critical chance and powerbuild where i have a chance to beat it by hittin it with a power ball. when this happens at a random calculation and you know you got a ritcal hit because a lightning blast will happen and time out after a couple seconds. Also I retrieved a templated background firefly effect. you can find these by searching around( you will have to make it work with you code though)
+
+
+### CSS Background effect resources
+- (https://onaircode.com/creative-css3-animation-examples/)
+- (https://onaircode.com/html-css-hero-image-background-examples/)
+- (https://onaircode.com/amazing-particles-animation-with-css-and-javascript/)
+-  (https://onaircode.com/image-animation-html-css-transition-effects/)
+
 
 ```js
 function criticalChance(){// make a critical chance funtion to beat the enemies
@@ -346,7 +356,7 @@ function criticalChance(){// make a critical chance funtion to beat the enemies
 ```
 
 ## For the win and reaload
-if each player score is 7 that player nukes the other and Game reset. and alert stops the whole game and reload clears the game.
+If each player score is 7 that player nukes the other and Game reset. and alert stops the whole game and reload clears the game.
 ```js
 function winCondition(){
   if(pOneScore === 7){
@@ -362,13 +372,16 @@ function winCondition(){
   }
 }
 ```
- 
+ ## Extras
 ## Resources and References
 
 - Google
 - Stack OverFlow
 - w3
 - Mozilla
+- General Assembly Staff(thanks!)
+
+
 
 
 
